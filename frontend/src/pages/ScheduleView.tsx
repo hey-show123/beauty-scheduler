@@ -201,7 +201,7 @@ const ScheduleView: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<Refresh />}
-            onClick={() => Promise.all([fetchStaff(), fetchBookings()])}
+            onClick={() => fetchStaff()}
           >
             更新
           </Button>
