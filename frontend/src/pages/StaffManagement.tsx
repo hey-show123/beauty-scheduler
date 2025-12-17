@@ -36,7 +36,7 @@ import {
 } from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
 import { staffApi, handleApiError, formatServiceType, formatSkillLevel, formatDayOfWeek } from '../services/api';
-import { Staff, StaffFormData, ServiceType, SkillLevel, Skill, Availability } from '../types';
+import { Staff, StaffFormData, ServiceType, SkillLevel } from '../types';
 
 const StaffManagement: React.FC = () => {
   const [staff, setStaff] = useState<Staff[]>([]);

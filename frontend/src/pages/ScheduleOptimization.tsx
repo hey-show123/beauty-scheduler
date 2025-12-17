@@ -18,20 +18,18 @@ import {
   Stepper,
   Step,
   StepLabel,
-  Divider,
   LinearProgress,
 } from '@mui/material';
 import {
   AutoFixHigh as Optimize,
   CalendarToday,
-  People,
   PlayArrow,
   CheckCircle,
   Speed,
   TrendingUp,
 } from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
-import { format, addDays } from 'date-fns';
+import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -74,7 +72,10 @@ const ScheduleOptimization: React.FC = () => {
   ];
 
   useEffect(() => {
-    Promise.all([fetchStaff(), fetchBookings()]);
+    const loadData = async () => {
+      await Promise.all([fetchStaff(), fetchBookings()]);
+    };
+    loadData();
   }, []);
 
   const fetchStaff = async () => {

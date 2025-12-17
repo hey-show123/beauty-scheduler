@@ -8,11 +8,6 @@ import {
   CardContent,
   Chip,
   Button,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   FormControl,
   InputLabel,
   Select,
@@ -33,10 +28,8 @@ import {
   FilterList,
   Print,
   Download,
-  CalendarToday,
-  Work,
 } from '@mui/icons-material';
-import { format, addHours, startOfDay } from 'date-fns';
+import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import {
   staffApi,
@@ -46,9 +39,7 @@ import {
 } from '../services/api';
 import {
   Staff,
-  Booking,
   ScheduleItem,
-  OptimizationResult,
 } from '../types';
 
 // スケジュールビューで使用するダミーデータ（実際には最適化結果から取得）
@@ -84,8 +75,7 @@ const mockScheduleData: ScheduleItem[] = [
 
 const ScheduleView: React.FC = () => {
   const [staff, setStaff] = useState<Staff[]>([]);
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [scheduleData, setScheduleData] = useState<ScheduleItem[]>(mockScheduleData);
+  const [scheduleData] = useState<ScheduleItem[]>(mockScheduleData);
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [selectedStaff, setSelectedStaff] = useState<string>('all');
   const [loading, setLoading] = useState(true);
@@ -93,7 +83,7 @@ const ScheduleView: React.FC = () => {
   const [viewMode, setViewMode] = useState<'timeline' | 'grid'>('timeline');
 
   useEffect(() => {
-    Promise.all([fetchStaff(), fetchBookings()]);
+    fetchStaff();
   }, []);
 
   const fetchStaff = async () => {
@@ -108,14 +98,6 @@ const ScheduleView: React.FC = () => {
     }
   };
 
-  const fetchBookings = async () => {
-    try {
-      const data = await bookingApi.getAllBookings();
-      setBookings(data);
-    } catch (err) {
-      console.error('予約データの取得に失敗しました:', err);
-    }
-  };
 
   const getTimeFromSlot = (slot: number): string => {
     const startTime = 9; // 9時開始
