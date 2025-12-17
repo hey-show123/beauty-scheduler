@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "beauty-scheduler",
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/main.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ],
+  "env": {
+    "PYTHONPATH": "."
+  },
+  "installCommand": "pip install -r requirements.txt",
+  "buildCommand": "cd frontend && npm install && npm run build"
+}
