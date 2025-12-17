@@ -10,7 +10,10 @@
       "Bash(timeout 30 npm start)",
       "Bash(git init:*)",
       "Bash(npm run build:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh:*)",
+      "Bash(npx vercel:*)"
     ],
     "deny": []
   }
